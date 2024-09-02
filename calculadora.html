@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .calculator {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 200px;
+        }
+        .display {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            font-size: 2em;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+        }
+        .button {
+            background: #eee;
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .button:hover {
+            background: #ddd;
+        }
+        .button.operator {
+            background: #f9a825;
+            color: white;
+        }
+        .button.operator:hover {
+            background: #f57f17;
+        }
+        .button.double {
+            grid-column: span 2;
+        }
+        .button.double-wide {
+            grid-column: span 4;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <div class="button double-wide" onclick="clearDisplay()">C</div>
+            <div class="button operator" onclick="appendCharacter('/')">/</div>
+            <div class="button operator" onclick="appendCharacter('*')">*</div>
+            <div class="button operator" onclick="appendCharacter('-')">-</div>
+            <div class="button" onclick="appendCharacter('7')">7</div>
+            <div class="button" onclick="appendCharacter('8')">8</div>
+            <div class="button" onclick="appendCharacter('9')">9</div>
+            <div class="button operator" onclick="appendCharacter('+')">+</div>
+            <div class="button" onclick="appendCharacter('4')">4</div>
+            <div class="button" onclick="appendCharacter('5')">5</div>
+            <div class="button" onclick="appendCharacter('6')">6</div>
+            <div class="button double" onclick="calculateResult()">=</div>
+            <div class="button" onclick="appendCharacter('1')">1</div>
+            <div class="button" onclick="appendCharacter('2')">2</div>
+            <div class="button" onclick="appendCharacter('3')">3</div>
+            <div class="button double" onclick="appendCharacter('0')">0</div>
+            <div class="button double" onclick="appendCharacter('.')">.</div>
+        </div>
+    </div>
+    <script>
+        function appendCharacter(character) {
+            const display = document.getElementById('display');
+            if (display.innerText === '0' && character !== '/') {
+                display.innerText = character;
+            } else {
+                display.innerText += character;
+            }
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').innerText = '0';
+        }
+
+        function calculateResult() {
+            const display = document.getElementById('display');
+            try {
+                display.innerText = eval(display.innerText);
+            } catch (e) {
+                display.innerText = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
